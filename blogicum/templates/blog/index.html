@@ -1,34 +1,12 @@
 {% extends "base.html" %}
 {% block title %}
-Лента записей
+  Лента записей
 {% endblock %}
 {% block content %}
-<div class="container py-5">
-  <h1>Лента записей</h1>
-  {% for blog in blog_list %}
-  <article>
-    <ul>
-        <li>
-            Название: {{ blog.title }}
-        </li>
-      <li>
-        Mесто: {{ blog.location.name|default:"Не указано" }}
-      </li>
-      <li>
-        Дата: {{blog.pub_date|date:"d E Y"}}
-      </li>
-      <li>
-        Категория:  <a href=" {% url 'blog:category_posts' blog.category.slug %}">{{blog.category.title}}</a>
-      </li>
-    </ul>
-    <p>
-      {{blog.text|truncatewords:10}}
-    </p>
-    <a href="{% url 'blog:post_detail' blog.id %}">Читать полный текст</a>
-  </article>
-  {% if not forloop.last %}
-  <hr>
-  {% endif %}
+  {% for post in page_obj %}
+    <article class="mb-5">
+      {% include "includes/post_card.html" %}
+    </article>
   {% endfor %}
-</div>
+  {% include "includes/paginator.html" %}
 {% endblock %}

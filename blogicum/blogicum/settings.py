@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+# `BASE_DIR` должен указывать на директорию `blogicum/` (это важно для тестов).
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "django-insecure-0@d109%bm_nps_m*ypdw7tjzggz33=e+okh5u$6+mxwj(2gsj)"
@@ -11,6 +12,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'blog.apps.BlogConfig',  # ТОЛЬКО ТАК!
     'pages.apps.PagesConfig',
+    'django_bootstrap5',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -80,8 +82,20 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    BASE_DIR.parent / 'static',
 ]
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR.parent / "media"
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+
+CSRF_FAILURE_VIEW = "pages.views.csrf_failure"
+
+# `django.contrib.auth` по умолчанию редиректит на `/accounts/login/`, тогда как
+# в проекте URL входа — под префиксом `auth/` (см. `django.contrib.auth.urls`).
+LOGIN_URL = "/auth/login/"
 
 DEFAULT_AUTO_FIELD = (
     "django.db.models.BigAutoField"
