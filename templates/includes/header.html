@@ -9,13 +9,18 @@
       {% with request.resolver_match.view_name as view_name %}
         <ul class="nav  nav-pills">
           <li class="nav-item">
-            <a class="nav-link {% if view_name == 'pages:about' %} text-white {% endif %}" href="{% url 'pages:about' %}">
+            <a class="nav-link {% if view_name == 'blog:index' %} active {% endif %}" href="{% url 'blog:index' %}">
+              Лента записей
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if view_name == 'pages:about' %} active {% endif %}" href="{% url 'pages:about' %}">
               О проекте
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if view_name == 'pages:rules' %} text-white {% endif %}" href="{% url 'pages:rules' %}">
-              Правила
+            <a class="nav-link {% if view_name == 'pages:rules' %} active {% endif %}" href="{% url 'pages:rules' %}">
+              Наши правила
             </a>
           </li>
           {% if user.is_authenticated %}

@@ -78,6 +78,9 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = "ru-RU"
 TIME_ZONE = "UTC"
 USE_I18N = True
+# Без этого Django парсит дату/время по форматам из global_settings (ISO, US),
+# а не из локали ru — вид «05.04.2026 15:30» не проходит валидацию.
+USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
@@ -96,6 +99,8 @@ CSRF_FAILURE_VIEW = "pages.views.csrf_failure"
 # `django.contrib.auth` по умолчанию редиректит на `/accounts/login/`, тогда как
 # в проекте URL входа — под префиксом `auth/` (см. `django.contrib.auth.urls`).
 LOGIN_URL = "/auth/login/"
+# По умолчанию после входа — `/accounts/profile/`, такого пути в URLconf нет.
+LOGIN_REDIRECT_URL = "/"
 
 DEFAULT_AUTO_FIELD = (
     "django.db.models.BigAutoField"
